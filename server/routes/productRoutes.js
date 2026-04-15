@@ -6,8 +6,6 @@ const path = require('path');
 const fs = require('fs');
 
 
-router.use('/uploads', express.static('uploads'));
-
 // Ensure the directory exists
 const uploadDir = 'uploads';
 if (!fs.existsSync(uploadDir)){
@@ -17,7 +15,7 @@ if (!fs.existsSync(uploadDir)){
 // Multer setup - Saving to 'uploads'
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "uploads"); // Matches the actual folder name
+    cb(null, "uploads");
   },
   filename: function (req, file, cb) {
     cb(null, Date.now() + "-" + file.originalname);

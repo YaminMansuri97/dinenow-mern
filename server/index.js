@@ -8,6 +8,8 @@ const bcrypt = require("bcrypt");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
+const path = require("path");
+
 
 dotenv.config();
 
@@ -16,6 +18,11 @@ dns.setDefaultResultOrder("ipv4first");
 app.use(cors());
 app.use(express.json());
 
+app.use(express.static(path.join(__dirname, "../my-react-app/build")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../my-react-app/build/index.html"));
+});
 
 
 
@@ -130,3 +137,4 @@ app.use("/products", require("./routes/productRoutes"));
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
+
