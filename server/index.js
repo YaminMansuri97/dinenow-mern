@@ -9,7 +9,11 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const path = require("path");
+const PORT = process.env.PORT || 3000;
 
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
 
 dotenv.config();
 
@@ -20,7 +24,7 @@ app.use(express.json());
 
 app.use(express.static(path.join(__dirname, "../my-react-app/build")));
 
-app.get("*", (req, res) => {
+app.use((req, res) => {
   res.sendFile(path.join(__dirname, "../my-react-app/build/index.html"));
 });
 
